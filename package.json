@@ -29,7 +29,7 @@
   },
   "keywords": [],
   "author": "Yeoh Zi Roy, Duluper",
-  "license": "CC-BY-ND-4.0",
+  "license": "DAL",
   "devDependencies": {
     "electron": "^28.2.0",
     "electron-builder": "^24.12.0"
