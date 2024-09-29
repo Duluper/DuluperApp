@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duluper</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+}
+
+h1 {
+    color: #007BFF;
+}
+
+p {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#GoBackBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+      }
+    </style>
+</head>
+<body>
+    <h1>Why did I make this app?</h1> <br>
+    <p><b>This is my personal app called Duluper, it was originally just for getting to my socials quickly but now its just my own app that I can use however I like (and distribute it to anyone I like)</b></p> <br>
+    <p>One of two reasons you read that paragraph:</p>
+    <li>You are one of my friends that I distributed this app to</li>
+    <li>You are someone just interested in this app (eg: Relatives)</li>
+    <button id="GoBackBtn">Go back</button>
+    <script>
+        var GoBackBtn = document.getElementById("GoBackBtn");
+
+        GoBackBtn.onclick = () => {
+            window.location.href="different-parts-menu.html";
+        }
+    </script>
+</body>
+</html>

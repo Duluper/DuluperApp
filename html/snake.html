@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duluper</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        canvas {
+            border: 1px solid #000;
+        }
+
+        #customAlert {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border: 2px solid black;
+      border-radius: 8px;
+      z-index: 9999;
+    }
+
+    #alertTitle {
+      font-weight: bold;
+    }
+
+    #alertMessage {
+      margin-top: 10px;
+    }
+
+    #okButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #okButton:hover {
+      background-color: #0056b3;
+    }
+
+        #GoBackBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007BFF;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+          }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div id="customAlert" class="custom-alert">
+        <div class="custom-alert-content">
+          <h2 id="alertTitle" class="alert-title">Alert</h2>
+          <p id="alertMessage" class="alert-message"></p>
+          <button onclick="closeAlert()" class="close-button">OK</button>
+        </div>
+      </div>      
+    <button id="GoBackBtn">Go back</button>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Define the size of each cell and the number of cells
+        const cellSize = 20;
+        const gridSize = canvas.width / cellSize;
+
+        let snake;
+        let dx;
+        let dy;
+        let food;
+        let gameLoop;
+
+        function resetGame() {
+    // Initialize the snake
+    snake = [{ x: 10, y: 10 }];
+    dx = 0;
+    dy = 0;
+
+    // Initialize the food
+    // Generate a random position for the food, avoiding the edges
+    food = generateRandomPosition();
+
+    // Start the game loop
+    gameLoop = setInterval(() => {
+        update();
+        draw();
+    }, 100);
+}
+
+function generateRandomPosition() {
+    // Generate random x and y coordinates for the food
+    let x = Math.floor(Math.random() * (gridSize - 2)) + 1; // Avoiding the left and right edges
+    let y = Math.floor(Math.random() * (gridSize - 2)) + 1; // Avoiding the top and bottom edges
+
+    return { x, y };
+}
+
+        function draw() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the snake
+            ctx.fillStyle = 'green';
+            snake.forEach(segment => {
+                ctx.fillRect(segment.x * cellSize, segment.y * cellSize, cellSize, cellSize);
+            });
+
+            // Draw the food
+            ctx.fillStyle = 'red';
+            ctx.fillRect(food.x * cellSize, food.y * cellSize, cellSize, cellSize);
+        }
+
+        function update() {
+            // Move the snake
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            snake.unshift(head);
+
+            // Check if the snake eats the food
+            if (head.x === food.x && head.y === food.y) {
+                // Generate new food
+                food.x = Math.floor(Math.random() * gridSize);
+                food.y = Math.floor(Math.random() * gridSize);
+            } else {
+                // Remove the tail
+                snake.pop();
+            }
+
+            // Check for collision with walls or itself
+            if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize || collision()) {
+                clearInterval(gameLoop);
+                showAlert('Game Over!', 'You lost lol, do better next time');
+                resetGame();
+            }
+        }
+
+        function collision() {
+            return snake.slice(1).some(segment => segment.x === snake[0].x && segment.y === snake[0].y);
+        }
+
+        document.addEventListener('keydown', e => {
+            switch (e.key) {
+                case 'ArrowUp':
+                    if (dy === 0) {
+                        dx = 0;
+                        dy = -1;
+                    }
+                    break;
+                case 'ArrowDown':
+                    if (dy === 0) {
+                        dx = 0;
+                        dy = 1;
+                    }
+                    break;
+                case 'ArrowLeft':
+                    if (dx === 0) {
+                        dx = -1;
+                        dy = 0;
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (dx === 0) {
+                        dx = 1;
+                        dy = 0;
+                    }
+                    break;
+            }
+        });
+
+        // Start the game
+        resetGame();
+
+        var GoBackBtn = document.getElementById("GoBackBtn");
+
+        GoBackBtn.onclick = () => {
+            window.location.href="different-parts-menu.html";
+        }
+    </script>
+    
+    <script>
+        function showAlert(title, message) {
+          document.getElementById('alertTitle').innerText = title;
+          document.getElementById('alertMessage').innerText = message;
+          document.getElementById('customAlert').style.display = 'flex';
+        }
+      
+        function closeAlert() {
+          document.getElementById('customAlert').style.display = 'none';
+        }
+      </script>
+      
+</body>
+</html>

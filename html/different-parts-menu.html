@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duluper</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+  
+      button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #3498db;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+      }
+  
+      button:hover {
+        background-color: #2980b9;
+      }
+  
+      #different-parts {
+        position: absolute;
+              top: 10px; /* Adjust this value to set the distance from the top */
+              right: 10px; /* Adjust this value to set the distance from the right */
+              background-color: #007bff;
+              color: #fff;
+              padding: 10px;
+              border: none;
+              cursor: pointer;
+      }
+
+      #HomeBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+      }
+      </style>
+</head>
+<body>
+    <button id="HomeBtn">Go back/Home</button> <br>
+    <button id="Info">App Information</button> <br>
+    <button id="WhyBtn">Why?</button> <br>
+    <button id="CalcBtn">Calculator</button> <br>
+    <button id="HashBtn">Hash</button> <br>
+    <button id="ClockBtn">Clock</button> <br>
+    <button id="PingPong">Ping pong game</button> <br>
+    <button id="cmd">Command Prompt</button> <br>
+    <button id="Snake">Snake Game</button>
+
+    <script>
+        const Info = document.getElementById('Info');
+        const HomeBtn = document.getElementById('HomeBtn');
+        const WhyBtn = document.getElementById('WhyBtn');
+        const CalcBtn = document.getElementById('CalcBtn');
+        const HashBtn = document.getElementById('HashBtn');
+        const ClockBtn = document.getElementById('ClockBtn')
+        const PingPong = document.getElementById('PingPong')
+        const cmd = document.getElementById('cmd')
+        const Snake = document.getElementById('Snake')
+
+        Info.onclick = () => {
+          window.location.href = 'info.html'
+        }
+
+        HomeBtn.onclick = () => {
+            window.location.href = "index.html";
+        }
+
+        WhyBtn.onclick = () => {
+            window.location.href = "why.html";
+        }
+
+        CalcBtn.onclick = () => {
+          window.location.href = "calculator.html"
+        }
+
+        HashBtn.onclick = () => {
+          window.location.href = "hash.html";
+        }
+
+        ClockBtn.onclick = () => {
+          window.location.href = "clock.html"
+        }
+
+        PingPong.onclick = () => {
+          window.location.href = "ping-pong-game.html"
+        }
+
+        cmd.onclick = () => {
+          window.location.href = "cmd.html"
+        }
+
+        Snake.onclick = () => {
+          window.location.href = "snake.html"
+        }
+    </script>
+</body>
+</html>

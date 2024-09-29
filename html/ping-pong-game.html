@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duluper</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #000;
+    }
+
+    canvas {
+      border: 1px solid #fff;
+    }
+
+    #GoBackBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007BFF;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+          }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="700" height="500"></canvas>
+  <button id="GoBackBtn">Go back</button>
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// Initial paddle and ball positions
+/* canvas.width = window.innerWidth;
+canvas.height = window.innerHeight; */
+let paddleX = canvas.width / 2;
+let ballX = canvas.width / 2;
+let ballY = canvas.height - 30;
+let dx = 2; // Ball movement along the x-axis
+let dy = -2; // Ball movement along the y-axis
+
+// Paddle dimensions
+const paddleHeight = 10;
+const paddleWidth = 75;
+
+// Paddle movement
+let rightPressed = false;
+let leftPressed = false;
+
+document.addEventListener('keydown', keyDownHandler);
+document.addEventListener('keyup', keyUpHandler);
+
+function keyDownHandler(e) {
+  if (e.key === 'Right' || e.key === 'ArrowRight') {
+    rightPressed = true;
+  } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+    leftPressed = true;
+  }
+}
+
+function keyUpHandler(e) {
+  if (e.key === 'Right' || e.key === 'ArrowRight') {
+    rightPressed = false;
+  } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+    leftPressed = false;
+  }
+}
+
+function drawBall() {
+  ctx.beginPath();
+  ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+  ctx.closePath();
+}
+
+function drawPaddle() {
+  ctx.beginPath();
+  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+  ctx.closePath();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBall();
+  drawPaddle();
+
+  // Move the paddle
+  if (rightPressed && paddleX < canvas.width - paddleWidth) {
+    paddleX += 5;
+  } else if (leftPressed && paddleX > 0) {
+    paddleX -= 5;
+  }
+
+  // Move the ball
+  ballX += dx;
+  ballY += dy;
+
+  // Bounce off the walls
+  if (ballX + dx > canvas.width - 10 || ballX + dx < 10) {
+    dx = -dx;
+  }
+
+  // Bounce off the paddle
+  if (ballY + dy < 10 || (ballY + dy > canvas.height - 10 && ballX > paddleX && ballX < paddleX + paddleWidth)) {
+    dy = -dy;
+  }
+
+  requestAnimationFrame(draw);
+}
+
+draw(); // Start the game loop
+
+//GoBack
+var GoBackBtn = document.getElementById("GoBackBtn");
+
+        GoBackBtn.onclick = () => {
+            window.location.href="different-parts-menu.html";
+        }
+  </script>
+</body>
+</html>

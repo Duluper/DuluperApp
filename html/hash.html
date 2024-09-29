@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duluper</title>
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.container {
+    text-align: center;
+    width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+textarea,
+input,
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+    #GoBackBtn {
+        position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: auto;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+          }
+          </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SHA-256 Converter</h1>
+        <label for="inputText">Input Text:</label>
+        <textarea id="inputText" rows="4" placeholder="Enter text to hash"></textarea>
+        <button onclick="hashText()">Generate SHA-256</button>
+        <label for="outputHash">SHA-256:</label>
+        <input id="outputHash" type="text" readonly>
+        <button id="GoBackBtn">Go back</button>
+    </div>
+    
+    <!--Enter stuff here-->
+    <script>
+        var GoBackBtn = document.getElementById("GoBackBtn");
+
+        GoBackBtn.onclick = () => {
+            window.location.href="different-parts-menu.html";
+        }
+    </script>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+function hashText() {
+    const inputText = document.getElementById('inputText').value;
+    ipcRenderer.send('hash-text', inputText);
+}
+
+ipcRenderer.on('hashed-text', (event, hash) => {
+    document.getElementById('outputHash').value = hash;
+});
+    </script>
+</body>
+</html>

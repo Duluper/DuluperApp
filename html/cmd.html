@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duluper</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 700;
+      width: 100vh;
+      background-color: black;
+      color: white;
+    }
+
+    #output {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    #commandInput {
+      width: 100%;
+      padding: 10px;
+      background-color: transparent;
+      color: white;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    #foreground {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #1100ff; /* Set foreground text color */
+      font-size: 14px;
+    }
+
+    #GoBackBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007BFF;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+          }
+  </style>
+</head>
+<body>
+    <div id="foreground">Made by Duluper - Use "help" to find a list of avaliable commands</div> <br>
+
+  <pre id="output"></pre>
+  <input type="text" id="commandInput" placeholder="Enter command">
+  <button id="GoBackBtn">Go back</button>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    const outputElement = document.getElementById('output');
+    const inputElement = document.getElementById('commandInput');
+
+    inputElement.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        const command = inputElement.value.trim();
+
+        if (command) {
+          // Send the command to the main process
+          ipcRenderer.send('execute-command', command);
+
+          // Clear the input
+          outputElement.innerText += `$ ${command}\n`
+          inputElement.value = '';
+        }
+      }
+    });
+
+    // Listen for the command output from the main process
+    ipcRenderer.on('command-output', (event, output) => {
+      // Display the output in the pre element
+      outputElement.innerText += output + '\n\n';
+    });
+
+
+    var GoBackBtn = document.getElementById("GoBackBtn");
+
+        GoBackBtn.onclick = () => {
+            window.location.href="different-parts-menu.html";
+        }
+  </script>
+</body>
+</html>

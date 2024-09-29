@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duluper</title>
+    <style>
+        * {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: bold 12px Arial, Helvetica, sans-serif;
+  background: black;
+}
+
+.clock {
+  border: 1px solid #606060;
+  color: white;
+  padding: 40px;
+  border-radius: 10px;
+  background-color: #222222;  
+}
+
+#Date {
+  font-size: 20px !important;
+  text-align: center;
+}
+
+.clock ul {
+  list-style: none;
+  display: flex;
+  font-size: 90px;
+  gap: 15px;
+}
+
+#GoBackBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007BFF;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+          }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="clock">
+        <div id="Date"></div>
+
+        <ul>
+          <li id="hours"></li>
+          <li id="point">:</li>
+          <li id="min"></li>
+          <li id="point">:</li>
+          <li id="sec"></li>
+        </ul>
+        <center><div id="specialMessage"></div></center>
+      </div>
+    </div>
+    <script>
+        function clock() {
+  var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+  var today = new Date();
+
+  document.getElementById('Date').innerHTML = dayNames[today.getDay()] + " " + today.getDate() + " " + monthNames[today.getMonth()] + " " + today.getFullYear();
+
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  const d = new Date();
+  let time = d.getTime();
+  var day = h<11 ? 'AM': 'PM';
+
+  h = h<10? '0'+h: h;
+  m = m<10 ? '0'+m: m;
+  s = s<10 ? '0'+s: s;
+
+  var specialMessage = document.getElementById('specialMessage');
+      if (today.getDate() === 1 && today.getMonth() === 0) { // If it's December 25th
+        specialMessage.innerText = "Happy new year"; //Happy new year
+      } else if(today.getDate() === 28 && today.getMonth() === 9) {
+        specialMessage.innerText = "Happy birthday to me!"; //My birthday
+      } else if(today.getDate() === 29 && today.getMonth() === 1) {
+        specialMessage.innerText = "WOAH, LEAP YEAR?!"; //Leap year
+      } else if(today.getDate() === 14 && today.getMonth() === 1) {
+        specialMessage.innerText = "Valentines day! (Most likely without one)"; //Valentines day
+      } else if(today.getDate() === 5 && today.getMonth() === 9) {
+        specialMessage.innerText = "its teachers day internationally but why?"; //Teachers day
+      } else if(today.getDate() === 20 && today.getMonth() === 10) {
+        specialMessage.innerText = "Come cherish those little brats we call children"; //Childrens day
+      } else if(today.getDate() === 1 && today.getMonth() === 5) {
+        specialMessage.innerText = "HAPPY PARENTS/LEGAL GUARDIANS DAY!"; //Parents day
+      } else if(today.getDate() === 12 && today.getMonth() === 4) {
+        specialMessage.innerText = "BIRTHER DAY! (Also leap years exist)"; //Mothers day
+      } else if(today.getDate() === 18 && today.getMonth() === 5) {
+        specialMessage.innerText = "YO ITS THE BIRTHER ASSISTANT DAY! (Also leap years exist)"; //Fathers day
+      } else if(today.getDate() === 1 && today.getMonth() === 3) {
+        specialMessage.innerText = "April fools is on the first! Or is it?"; //April fools
+      } else if(today.getDate() === 10 && today.getMonth() === 1) {
+        specialMessage.innerText = "Gong xi fai cai"; //CNY/Chinese new year
+      } else if(today.getDate() === 25 && today.getMonth() === 11) {
+        specialMessage.innerText = "Christmas isnt all about the gifts"; //Christmas
+      } else if(today.getDate() === 17 && today.getMonth() === 10) {
+        specialMessage.innerText = "Celebrate the time of being in school"; //Students day
+      } else if(today.getDate() === 31 && today.getMonth() === 9) {
+        specialMessage.innerText = "Spooky spooky skeleton!"; //Haloween
+      } else if(today.getDate() === 17 && today.getMonth() === 2) {
+        specialMessage.innerText = "Good luck!"; //St. Patricks day
+      } else if(today.getDate() === 27 && today.getMonth() === 0) {
+        specialMessage.innerText = "Holocaust. Its so sad :("; //Rememberation of the victims of the Holocaust Day
+      } else if(today.getDate() === 19 && today.getMonth() === 10) {
+        specialMessage.innerText = "Mens day"; //Mens day
+      } else if(today.getDate() === 8 && today.getMonth() === 2) {
+        specialMessage.innerText = "Women day lol"; //Womens day
+      } else if(today.getDate() === 5 && today.getMonth() === 5) {
+        specialMessage.innerText = "Yo global warming and climate change kinda sucks tbh"; //Enviroment day
+      } else if(today.getDate() === 16 && today.getMonth() === 9) {
+        specialMessage.innerText = "I really wanna eat on this day"; //World food day
+      } else if(today.getDate() === 5 && today.getMonth() === 11) {
+        specialMessage.innerText = "Why do we have a soil day?"; //World soil day
+      } else if(today.getDate() === 31 && today.getMonth() === 7) {
+        specialMessage.innerText = "Malaysian Independence day"; //Malaysian independence
+      } else {
+        specialMessage.innerText = ""; // Clear the message if no special condition met
+      }
+
+  
+  document.getElementById('hours').innerHTML = h;
+  document.getElementById('min').innerHTML = m;
+  document.getElementById('sec').innerHTML = s;
+} var inter = setInterval(clock,400);
+    </script>
+    <button id="GoBackBtn">Go back</button>
+    <!--Enter stuff here-->
+    <script>
+        var GoBackBtn = document.getElementById("GoBackBtn");
+
+        GoBackBtn.onclick = () => {
+            window.location.href="different-parts-menu.html";
+        }
+    </script>
+  </body>
+</html>

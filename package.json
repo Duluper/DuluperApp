@@ -1,0 +1,37 @@
+{
+  "name": "Duluper",
+  "productName": "Duluper",
+  "version": "1.5.1",
+  "description": "App created by Duluper",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-packager . Duluper --platform=win32 --arch=x64 --out=release-builds --overwrite",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "Duluper",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "img/duluper-original.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "installerIcon": "img/duluper-original.ico",
+      "uninstallerIcon": "img/duluper-original.ico",
+      "license": "license.md",
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false
+    }
+  },
+  "keywords": [],
+  "author": "Yeoh Zi Roy, Duluper",
+  "license": "CC-BY-ND-4.0",
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.12.0"
+  }
+}

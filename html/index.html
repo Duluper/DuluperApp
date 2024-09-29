@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duluper</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #other {
+      position: absolute;
+            top: 10px; /* Adjust this value to set the distance from the top */
+            right: 10px; /* Adjust this value to set the distance from the right */
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="other">Other</button>
+
+  <button id="openLink1">Youtube</button>
+  <button id="openLink2">Github</button>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    // Function to send a message to the main process
+    function openExternalLink(link) {
+      ipcRenderer.send('open-external-link', link);
+    }
+
+    // Attach click event listeners to the buttons
+    document.getElementById('openLink1').addEventListener('click', function () {
+      openExternalLink('https://youtube.com/@Duluper');
+    });
+
+    document.getElementById('openLink2').addEventListener('click', function () {
+      openExternalLink('https://github.com/Duluper');
+    });
+  </script>
+
+  <script>
+    var part2Btn = document.getElementById('other');
+
+    part2Btn.onclick = () => {
+      window.location.href = "different-parts-menu.html";
+    }
+  </script>
+</body>
+</html>
